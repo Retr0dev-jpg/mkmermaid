@@ -45,6 +45,16 @@ public class DiagramTests
     }
 
     [Fact]
+    public void KanbanBareIdsMayContainSpaces()
+    {
+        var texts = Ok("kanban\n  In progress\n    t1[Write docs]\n  Done today\n    Ship it @{ assigned: 'Ann' }");
+        Assert.Contains("In progress", texts);
+        Assert.Contains("Done today", texts);
+        Assert.Contains("Ship it", texts);
+        Assert.Contains("Write docs", texts);
+    }
+
+    [Fact]
     public void BlockEdgesAcceptBothLabelForms()
     {
         var texts = Ok("block-beta\n  columns 3\n  a b c\n  a -- \"SQL\" --> b\n  b -->|HTTP| c");

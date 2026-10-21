@@ -29,7 +29,8 @@ internal sealed class KanbanModel : IDiagramModel
 
 internal static partial class KanbanParser
 {
-    [GeneratedRegex(@"^(?<id>[^\s\[\]()@]+)?\s*(?:\[(?<label>.*)\])?\s*(?:@\{(?<meta>.*)\})?$", RegexOptions.CultureInvariant)]
+    // Like Mermaid's NODE_ID token, a bare id may contain spaces ("In progress").
+    [GeneratedRegex(@"^(?<id>[^\[\]()@{}]+?)?\s*(?:\[(?<label>.*)\])?\s*(?:@\{(?<meta>.*)\})?$", RegexOptions.CultureInvariant)]
     private static partial Regex Item();
 
     public static KanbanModel Parse(Source source)

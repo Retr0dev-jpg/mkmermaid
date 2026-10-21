@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Kanban columns and cards written as bare text may contain spaces (`In progress`), as in Mermaid.
+
 ## 0.1.1
 
 - Entity codes such as `#59;` and `#124;` no longer end a statement, in flowcharts and at the end of sequence messages, as in Mermaid.
