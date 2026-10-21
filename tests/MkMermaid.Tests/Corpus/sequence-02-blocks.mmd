@@ -1,0 +1,32 @@
+sequenceDiagram
+    title Blocks and activations
+    autonumber
+    Alice->>+John: Hello John, how are you?
+    Alice->>+John: John, can you hear me?
+    John-->>-Alice: Hi Alice, I can hear you!
+    John-->>-Alice: I feel great!
+    alt is sick
+        Bob->>Alice: Not so good :(
+    else is well
+        Bob->>Alice: Feeling fresh like a daisy
+    end
+    opt Extra response
+        Bob->>Alice: Thanks for asking
+    end
+    par Alice to Bob
+        Alice->>Bob: Hello guys!
+    and Alice to John
+        Alice->>John: Hello guys!
+    end
+    rect rgb(191, 223, 255)
+        critical Establish a connection to the DB
+            Alice-xBob: Connect
+        option Network timeout
+            Alice--)Bob: Log error
+        end
+    end
+    break when the booking process fails
+        Bob-->John: show failure
+    end
+    Note over Alice,John: A typical interaction
+    Alice<<->>John: Bidirectional

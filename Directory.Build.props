@@ -1,0 +1,21 @@
+﻿<Project>
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <!-- Single source of the library version; the release workflow overrides it from the tag. -->
+  <PropertyGroup>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <Authors>Marco Simone Cannizzaro</Authors>
+    <Product>MkMermaid</Product>
+    <Copyright>Copyright © Marco Simone Cannizzaro. Licensed under the GNU LGPL v3.0.</Copyright>
+    <RepositoryUrl>https://github.com/Retr0dev-jpg/mkmermaid</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+    <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
+  </PropertyGroup>
+</Project>

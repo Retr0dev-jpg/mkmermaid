@@ -1,0 +1,26 @@
+classDiagram
+    direction RL
+    namespace Shapes {
+        class Square~Shape~{
+            int id
+            List~int~ position
+            setPoints(List~int~ points)
+            getPoints() List~int~
+        }
+        class Shape {
+            <<interface>>
+            +draw()*
+            +count()$ int
+        }
+    }
+    Square ..|> Shape : implements
+    Customer "1" --> "*" Ticket : buys
+    Student "1" --o "1..*" Course
+    Galaxy *-- Star : contains
+    Car o-- Wheel
+    Logger ..> Shape : uses
+    Lollipop ()-- Shape
+    A -- B
+    C .. D
+    class Car:::highlight
+    classDef highlight fill:#f9f,stroke:#333

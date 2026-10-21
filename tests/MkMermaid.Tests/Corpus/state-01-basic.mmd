@@ -1,0 +1,11 @@
+stateDiagram-v2
+    [*] --> Still
+    Still --> [*]
+    Still --> Moving
+    Moving --> Still
+    Moving --> Crash
+    Crash --> [*]
+    note right of Crash : Important information!
+    state "This is a state description" as s2
+    Moving --> s2 : slowing down
+    s2 : with a second line

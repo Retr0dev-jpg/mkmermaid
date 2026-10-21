@@ -1,0 +1,23 @@
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
+    CUSTOMER {
+        string name
+        string custNumber PK "unique number"
+        string sector
+    }
+    ORDER {
+        int orderNumber PK
+        string deliveryAddress FK
+    }
+    LINE-ITEM {
+        string productCode FK
+        int quantity
+        float pricePerUnit
+    }
+    p[Person] {
+        string firstName
+        varchar(255) email UK
+    }
+    p only one to zero or more ORDER : "may place"

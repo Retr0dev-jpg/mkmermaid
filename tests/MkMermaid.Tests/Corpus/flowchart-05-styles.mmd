@@ -1,0 +1,24 @@
+---
+title: Styled flowchart
+---
+flowchart LR
+    subgraph TOP
+        direction TB
+        subgraph B1
+            direction RL
+            i1 -->f1
+        end
+        subgraph B2
+            direction BT
+            i2 -->f2
+        end
+    end
+    A --> TOP --> B
+    B1 --> B2
+    classDef green fill:#9f6,stroke:#333,stroke-width:2px;
+    classDef orange fill:#f96,stroke:#333,stroke-width:4px;
+    class A green
+    B:::orange
+    style i1 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+    linkStyle 0 stroke:#ff3,stroke-width:4px,color:red;
+    C["`**Bold** and _italic_ markdown that wraps across several lines automatically`"] --> D["A #quot;quoted#quot; label<br>second line"]

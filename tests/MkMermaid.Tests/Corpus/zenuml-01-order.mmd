@@ -1,0 +1,28 @@
+zenuml
+    title Order Service
+    @Actor Client
+    @Boundary OrderController
+    @EC2 OrderService
+    @Database Db
+    // Places an order
+    Client->OrderController: POST /orders
+    OrderController.post(payload) {
+      order = OrderService.create(payload) {
+        if (payload.valid) {
+          Db.save(order)
+          return order
+        } else {
+          OrderController.badRequest()
+        }
+      }
+      while (retries < 3) {
+        OrderService.notify()
+      }
+      try {
+        Db.commit()
+      } catch (error) {
+        Db.rollback()
+      } finally {
+        Db.close()
+      }
+    }

@@ -1,0 +1,22 @@
+sequenceDiagram
+    box Aqua Frontend
+        participant U@{ "type": "boundary" } as User
+        participant C@{ "type": "control" } as Controller
+    end
+    box rgb(255,240,200) Backend
+        participant E@{ "type": "entity" } as Entity
+        participant D@{ "type": "database" } as Database
+        participant Q@{ "type": "queue" } as Queue
+        participant S@{ "type": "collections" } as Services
+    end
+    U->>C: Request
+    C->>E: Load
+    E->>D: Query
+    D-->>E: Rows
+    E->>Q: Publish
+    Q->>S: Deliver
+    create participant W as Worker
+    S->>W: Spawn
+    W-->>S: Done
+    destroy W
+    S-xW: Kill

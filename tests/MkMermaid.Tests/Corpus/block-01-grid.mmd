@@ -1,0 +1,15 @@
+block-beta
+  columns 3
+  a["Frontend"] b(("API")) c[("Database")]
+  d:2 e{"Cache?"}
+  block:group1:3
+    columns 2
+    h["Worker 1"] i["Worker 2"]
+  end
+  space arrow<["Deploy"]>(down) space
+  f["Done"]:3
+  a --> b
+  b -- "SQL" --> c
+  e --> h
+  classDef accent fill:#f96,stroke:#333
+  class f accent

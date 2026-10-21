@@ -1,0 +1,37 @@
+stateDiagram-v2
+    [*] --> First
+    state First {
+        [*] --> second
+        second --> Inner
+        state Inner {
+            [*] --> deep
+            deep --> [*]
+        }
+    }
+    First --> fork_state
+    state fork_state <<fork>>
+    fork_state --> State2
+    fork_state --> State3
+    state join_state <<join>>
+    State2 --> join_state
+    State3 --> join_state
+    join_state --> if_state
+    state if_state <<choice>>
+    if_state --> False: if n < 0
+    if_state --> True : if n >= 0
+    state Active {
+        [*] --> NumLockOff
+        NumLockOff --> NumLockOn : EvNumLockPressed
+        NumLockOn --> NumLockOff : EvNumLockPressed
+        --
+        [*] --> CapsLockOff
+        CapsLockOff --> CapsLockOn : EvCapsLockPressed
+        CapsLockOn --> CapsLockOff : EvCapsLockPressed
+    }
+    True --> Active
+    note left of False
+        Negative values
+        are rejected
+    end note
+    classDef bad fill:#f00,color:white,font-weight:bold
+    class False bad
