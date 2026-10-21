@@ -28,7 +28,7 @@ internal static partial class SequenceParser
         foreach (var line in source.Lines)
         {
             var text = line.Trimmed;
-            if (text.EndsWith(';'))
+            if (text.EndsWith(';') && !ParseHelpers.ClosesEntity(text, text.Length - 1))
             {
                 text = text[..^1].TrimEnd();
             }

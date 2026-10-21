@@ -59,7 +59,6 @@ internal sealed partial class RichText
             text = text[1..^1];
         }
 
-        text = DecodeEntities(text);
         text = IconToken().Replace(text, "");
         text = BreakTag().Replace(text, "\n");
         text = text.Replace("\r", "", StringComparison.Ordinal);
@@ -71,7 +70,9 @@ internal sealed partial class RichText
         var lines = new List<IReadOnlyList<TextRun>>();
         foreach (var line in text.Split('\n'))
         {
-            lines.Add(markdown ? ParseMarkdown(line) : ParseHtml(line));
+            // Entities decode after the markup is read, so #60;b#62; stays literal text as in Mermaid.
+            var runs = markdown ? ParseMarkdown(line) : ParseHtml(line);
+            lines.Add(runs.Select(r => r with { Text = DecodeEntities(r.Text).ReplaceLineEndings(" ") }).ToList());
         }
 
         return new RichText(lines, markdown);

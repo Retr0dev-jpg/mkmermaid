@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Entity codes such as `#59;` and `#124;` no longer end a statement, in flowcharts and at the end of sequence messages, as in Mermaid.
+- Entity codes decode after the label markup is read, so `#60;b#62;` is drawn as the literal text `<b>` instead of turning on bold.
+
 ## 0.1.0
 
 First release.

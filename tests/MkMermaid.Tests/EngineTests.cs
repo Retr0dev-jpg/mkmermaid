@@ -48,6 +48,26 @@ public class EngineTests
     }
 
     [Fact]
+    public void EntityCodesAreLiteralTextAndNotSeparators()
+    {
+        var flow = Samples.Texts("flowchart LR\n  A[\"a#59;b\"] -->|x#124;y #59; z| B[#60;b#62;bold#60;/b#62;]; B --> C");
+        Assert.Contains("a;b", flow);
+        Assert.Contains("x|y ; z", flow);
+        Assert.Contains("<b>bold</b>", flow);
+        Assert.Contains("C", flow);
+        var sequence = Samples.Texts("sequenceDiagram\n  A->>B: one#59; two #35;3 #60;i#62;");
+        Assert.Contains("one; two #3 <i>", sequence);
+    }
+
+    [Fact]
+    public void StyleColorsStillEndStatements()
+    {
+        var scene = MermaidEngine.Render("flowchart LR\n  A --> B; style A fill:#ff0000; B --> C");
+        Assert.Null(scene.Error);
+        Assert.Contains(scene.Items.OfType<MkMermaid.Scene.ShapeItem>(), s => s.Fill == "#FF0000" || s.Fill == "#ff0000");
+    }
+
+    [Fact]
     public void DirectiveThemeAppliesUnlessForced()
     {
         const string source = "%%{init: {\"theme\": \"dark\"}}%%\nflowchart TD\n  A --> B";

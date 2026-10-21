@@ -76,7 +76,7 @@ internal static class ParseHelpers
                     depth = Math.Max(0, depth - 1);
                     break;
                 default:
-                    if (c == separator && depth == 0)
+                    if (c == separator && depth == 0 && !(c == ';' && ClosesEntity(text, i)))
                     {
                         result.Add(text[start..i]);
                         start = i + 1;
@@ -88,6 +88,31 @@ internal static class ParseHelpers
 
         result.Add(text[start..]);
         return result;
+    }
+
+    /// <summary>
+    /// True when the ';' at <paramref name="index"/> ends an entity code (#59;, #quot;, &amp;amp;), which Mermaid
+    /// never treats as a statement separator. A color after a colon (fill:#f9f;) is not an entity.
+    /// </summary>
+    public static bool ClosesEntity(string text, int index)
+    {
+        var start = index;
+        while (start > 0 && index - start < 32 && char.IsAsciiLetterOrDigit(text[start - 1]))
+        {
+            start--;
+        }
+
+        if (start == index || start == 0)
+        {
+            return false;
+        }
+
+        return text[start - 1] switch
+        {
+            '#' => start < 2 || text[start - 2] != ':',
+            '&' => char.IsAsciiLetter(text[start]),
+            _ => false
+        };
     }
 
     /// <summary>Parses the small inline map used by <c>@{ key: value, ... }</c> and kanban metadata.</summary>
